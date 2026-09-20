@@ -1,0 +1,57 @@
+VERIDIAN CORP — IT SUPPORT KNOWLEDGE BASE
+
+KB-01 PASSWORD RESET
+- Employees can use self-service password reset at any time.
+- If the account is locked after 5 failed attempts, contact IT to unlock it manually.
+- No approval is required.
+
+KB-02 VPN ACCESS
+- Full-time employees receive VPN access automatically.
+- Contractors require manager approval through the access request form.
+- VPN credentials expire after 90 days.
+- Employees must renew credentials when they expire.
+
+KB-03 LAPTOP REPLACEMENT
+- Employees are eligible for laptop replacement after 3 years.
+- Earlier replacement is allowed for a verified hardware failure.
+- Replacement requests should be submitted at least 2 weeks before the intended replacement date.
+
+KB-04 SOFTWARE INSTALLATION
+- Software in the approved catalog can be self-installed.
+- Software outside the approved catalog requires IT Security review.
+- IT Security review takes 3–5 business days.
+
+KB-05 PRINTER
+- Check the printer queue.
+- Restart the print spooler.
+- If the issue persists, log a ticket with the printer asset tag.
+
+KB-06 EMAIL MAILBOX
+- Default mailbox capacity is 25GB.
+- Archive old mail when approaching the quota.
+- Increases above 25GB require manager approval.
+- Maximum mailbox capacity is 50GB.
+
+KB-07 GUEST WI-FI
+- Guest Wi-Fi credentials are valid for 24 hours.
+- Any employee can generate guest Wi-Fi credentials at the front-desk kiosk.
+- No IT ticket is required.
+
+KB-08 EXPENSE SOFTWARE ACCESS
+- Finance grants access to the expense software.
+- IT does not grant expense software access.
+- IT can provide login or technical assistance once the account exists.
+
+KB-09 SECURITY INCIDENT
+- Suspected phishing, malware, or unauthorized access must be reported immediately to security@veridian-corp.example.
+- Suspected security incidents should not be forwarded.
+
+KB-10 WFH EQUIPMENT
+- Employees working remotely more than 3 days per week are eligible for a one-time chair/monitor allowance.
+- Manager sign-off is required.
+- Finance processes the allowance.
+- IT handles the shipping request only after approval.
+
+ASSET MANAGEMENT POLICY
+- All hardware follows a standard 4-year refresh cycle from the issue date.
+- Early replacement outside the normal cycle requires Finance sign-off in addition to IT approval.

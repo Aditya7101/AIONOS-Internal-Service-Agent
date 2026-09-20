@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ticket Queue - Veridian IT</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+
+        <div>
+            <h1>Veridian IT Support</h1>
+            <p>Ticket Queue</p>
+        </div>
+
+        <nav>
+            <a href="/">Agent</a>
+            <a href="/tickets">Tickets</a>
+            <a href="/audit">Audit Trail</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <section class="page-card">
+
+            <h2>Escalated Tickets</h2>
+
+            {% if tickets %}
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee</th>
+                            <th>Issue</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Source</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for ticket in tickets %}
+
+                        <tr>
+
+                            <td>TK-{{ ticket["id"] }}</td>
+
+                            <td>{{ ticket["employee_name"] }}</td>
+
+                            <td>{{ ticket["issue"] }}</td>
+
+                            <td>{{ ticket["category"] }}</td>
+
+                            <td>
+                                <span class="priority">
+                                    {{ ticket["priority"] }}
+                                </span>
+                            </td>
+
+                            <td>{{ ticket["status"] }}</td>
+
+                            <td>{{ ticket["source"] }}</td>
+
+                            <td>{{ ticket["created_at"] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+                <h3>No tickets yet</h3>
+                <p>
+                    Escalated requests will appear here automatically.
+                </p>
+            </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

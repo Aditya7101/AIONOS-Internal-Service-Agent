@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Audit Trail - Veridian IT</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+
+        <div>
+            <h1>Veridian IT Support</h1>
+            <p>Agent Audit Trail</p>
+        </div>
+
+        <nav>
+            <a href="/">Agent</a>
+            <a href="/tickets">Tickets</a>
+            <a href="/audit">Audit Trail</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <section class="page-card">
+
+            <h2>Agent Activity</h2>
+
+            <p class="page-description">
+                Every agent interaction is recorded for traceability.
+            </p>
+
+
+            {% if logs %}
+
+            <div class="audit-list">
+
+                {% for log in logs %}
+
+                <div class="audit-item">
+
+                    <div class="audit-header">
+
+                        <strong>
+                            {{ log["action"] }}
+                        </strong>
+
+                        <span>
+                            {{ log["created_at"] }}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        <strong>Employee:</strong>
+                        {{ log["employee_name"] }}
+                    </p>
+
+                    <p>
+                        {{ log["details"] }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <h3>No activity yet</h3>
+
+                <p>
+                    Agent interactions will appear here automatically.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
