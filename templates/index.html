@@ -4,273 +4,502 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Veridian IT Support Agent</title>
+    <title>Veridian IT Service Desk</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <header class="header">
-            <div>
-                <h1>Veridian IT Support</h1>
-                <p>Internal Service Agent</p>
-            </div>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div>
+            <h1>VERIDIAN CORP</h1>
+            <p>IT SERVICE DESK · INTERNAL SUPPORT</p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:18px;">
+
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                gap:7px;
+                color:#15803d;
+                font-size:13px;
+                font-weight:700;
+                background:#f0fdf4;
+                padding:7px 11px;
+                border-radius:999px;
+                border:1px solid #bbf7d0;
+            ">
+                <span style="
+                    width:8px;
+                    height:8px;
+                    border-radius:50%;
+                    background:#22c55e;
+                    display:inline-block;
+                "></span>
+                Agent Online
+            </span>
 
             <nav>
                 <a href="/">Agent</a>
                 <a href="/tickets">Tickets</a>
                 <a href="/audit">Audit Trail</a>
             </nav>
-        </header>
+
+        </div>
+
+    </header>
 
 
-        <main>
+    <main>
 
-            <section class="welcome-card">
+        <!-- WELCOME -->
+        <section class="welcome-card">
 
-                <h2>How can I help you?</h2>
+            <div style="
+                display:inline-block;
+                font-size:12px;
+                font-weight:800;
+                letter-spacing:1px;
+                color:#2563eb;
+                background:#eff6ff;
+                padding:6px 10px;
+                border-radius:7px;
+                margin-bottom:12px;
+            ">
+                AI-POWERED INTERNAL SUPPORT
+            </div>
 
-                <p>
-                    Describe your IT issue. The agent will use the
-                    Veridian knowledge base to provide guidance,
-                    ask necessary questions, or escalate the request.
+            <h2>How can we help?</h2>
+
+            <p>
+                Describe your IT issue and the support agent will use
+                the Veridian knowledge base to provide policy-grounded
+                guidance, ask necessary questions, or escalate the request.
+            </p>
+
+            <div style="
+                display:flex;
+                gap:9px;
+                flex-wrap:wrap;
+                margin-top:18px;
+            ">
+
+                <span style="
+                    background:#f8fafc;
+                    border:1px solid #e2e8f0;
+                    padding:7px 11px;
+                    border-radius:8px;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#475569;
+                ">
+                    ✓ Policy Grounded
+                </span>
+
+                <span style="
+                    background:#f8fafc;
+                    border:1px solid #e2e8f0;
+                    padding:7px 11px;
+                    border-radius:8px;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#475569;
+                ">
+                    ✓ Source Cited
+                </span>
+
+                <span style="
+                    background:#f8fafc;
+                    border:1px solid #e2e8f0;
+                    padding:7px 11px;
+                    border-radius:8px;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#475569;
+                ">
+                    ✓ Human Escalation
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- REQUEST FORM -->
+        <section class="input-card">
+
+            <div style="margin-bottom:20px;">
+
+                <h2 style="
+                    color:#0f1f3d;
+                    font-size:21px;
+                    margin-bottom:5px;
+                ">
+                    Submit an IT Request
+                </h2>
+
+                <p style="
+                    color:#64748b;
+                    font-size:14px;
+                ">
+                    Provide enough detail so the agent can assist you accurately.
                 </p>
 
-            </section>
+            </div>
 
 
-            <section class="input-card">
+            <label for="employeeName">
+                Employee Name
+            </label>
 
-                <label for="employeeName">Employee Name</label>
-
-                <input
-                    type="text"
-                    id="employeeName"
-                    placeholder="e.g. Aditi Sharma"
-                >
-
-
-                <label for="message">Describe your issue</label>
-
-                <textarea
-                    id="message"
-                    rows="5"
-                    placeholder="e.g. My VPN stopped working because my credentials expired."
-                ></textarea>
+            <input
+                type="text"
+                id="employeeName"
+                placeholder="e.g. Aditi Sharma"
+            >
 
 
-                <button onclick="sendMessage()">
-                    Submit Request
-                </button>
+            <label for="message">
+                Describe your issue
+            </label>
 
-            </section>
+            <textarea
+                id="message"
+                rows="5"
+                placeholder="e.g. My VPN stopped working because my credentials expired."
+            ></textarea>
 
 
-            <section id="result" class="result-card hidden">
+            <!-- QUICK EXAMPLES -->
+            <div style="margin-top:15px;">
 
-                <div class="decision" id="decision"></div>
+                <p style="
+                    color:#64748b;
+                    font-size:12px;
+                    font-weight:700;
+                    margin-bottom:9px;
+                ">
+                    QUICK EXAMPLES
+                </p>
 
-                <h3>Agent Response</h3>
+                <div style="
+                    display:flex;
+                    flex-wrap:wrap;
+                    gap:8px;
+                ">
 
-                <p id="response"></p>
+                    <button
+                        type="button"
+                        onclick="useExample('My VPN credentials have expired. What should I do?')"
+                        style="
+                            margin:0;
+                            padding:8px 11px;
+                            background:#f8fafc;
+                            color:#334155;
+                            border:1px solid #dbe4f0;
+                            box-shadow:none;
+                            font-size:12px;
+                        "
+                    >
+                        VPN expired
+                    </button>
 
-                <div id="sourceBox" class="info-box hidden">
-                    <strong>Source:</strong>
-                    <span id="source"></span>
+                    <button
+                        type="button"
+                        onclick="useExample('I am locked out after entering my password incorrectly multiple times.')"
+                        style="
+                            margin:0;
+                            padding:8px 11px;
+                            background:#f8fafc;
+                            color:#334155;
+                            border:1px solid #dbe4f0;
+                            box-shadow:none;
+                            font-size:12px;
+                        "
+                    >
+                        Password locked
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="useExample('My printer is not working and I need help troubleshooting it.')"
+                        style="
+                            margin:0;
+                            padding:8px 11px;
+                            background:#f8fafc;
+                            color:#334155;
+                            border:1px solid #dbe4f0;
+                            box-shadow:none;
+                            font-size:12px;
+                        "
+                    >
+                        Printer issue
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="useExample('I need to install software that is not available in the approved catalog.')"
+                        style="
+                            margin:0;
+                            padding:8px 11px;
+                            background:#f8fafc;
+                            color:#334155;
+                            border:1px solid #dbe4f0;
+                            box-shadow:none;
+                            font-size:12px;
+                        "
+                    >
+                        Software request
+                    </button>
+
                 </div>
 
-
-                <div id="resolutionBox" class="info-box hidden">
-                    <strong>Resolution / Next Step:</strong>
-                    <span id="resolution"></span>
-                </div>
+            </div>
 
 
-                <div id="followUpBox" class="info-box hidden">
-                    <strong>Follow-up Question:</strong>
-                    <span id="followUp"></span>
-                </div>
+            <button
+                onclick="sendMessage()"
+                style="margin-top:20px;"
+            >
+                Submit Request
+            </button>
+
+        </section>
 
 
-                <div id="ticketBox" class="ticket-box hidden">
-                    <strong>Ticket Created</strong>
+        <!-- RESULT -->
+        <section id="result" class="result-card hidden">
 
-                    <p>
-                        Ticket ID:
-                        <span id="ticketId"></span>
-                    </p>
+            <div class="decision" id="decision"></div>
 
-                    <a href="/tickets">
-                        View Ticket Queue
-                    </a>
-                </div>
+            <h3>Agent Response</h3>
 
-            </section>
-
-        </main>
-
-    </div>
+            <p id="response"></p>
 
 
-    <script>
+            <div id="sourceBox" class="info-box hidden">
 
-        async function sendMessage() {
+                <strong>Policy Source</strong>
 
-            const employeeName =
-                document.getElementById("employeeName").value.trim();
+                <span id="source"></span>
 
-            const message =
-                document.getElementById("message").value.trim();
+            </div>
 
 
-            if (!message) {
+            <div id="resolutionBox" class="info-box hidden">
 
-                alert("Please describe your IT issue.");
+                <strong>Resolution / Next Step</strong>
 
-                return;
-            }
+                <span id="resolution"></span>
 
-
-            const result =
-                document.getElementById("result");
-
-            const responseText =
-                document.getElementById("response");
-
-            const decision =
-                document.getElementById("decision");
+            </div>
 
 
-            result.classList.remove("hidden");
+            <div id="followUpBox" class="info-box hidden">
+
+                <strong>Follow-up Question</strong>
+
+                <span id="followUp"></span>
+
+            </div>
+
+
+            <div id="ticketBox" class="ticket-box hidden">
+
+                <strong>Ticket Created</strong>
+
+                <p>
+                    Ticket ID:
+                    <span id="ticketId"></span>
+                </p>
+
+                <a href="/tickets">
+                    View Ticket Queue →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    function useExample(text) {
+
+        document.getElementById("message").value = text;
+
+        document.getElementById("message").focus();
+
+    }
+
+
+    async function sendMessage() {
+
+        const employeeName =
+            document.getElementById("employeeName").value.trim();
+
+        const message =
+            document.getElementById("message").value.trim();
+
+
+        if (!message) {
+
+            alert("Please describe your IT issue.");
+
+            return;
+        }
+
+
+        const result =
+            document.getElementById("result");
+
+        const responseText =
+            document.getElementById("response");
+
+        const decision =
+            document.getElementById("decision");
+
+
+        result.classList.remove("hidden");
+
+
+        responseText.textContent =
+            "Processing your request...";
+
+
+        decision.textContent =
+            "ANALYZING";
+
+
+        try {
+
+            const response = await fetch("/chat", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    employee_name: employeeName,
+
+                    message: message
+
+                })
+
+            });
+
+
+            const data = await response.json();
+
 
             responseText.textContent =
-                "Processing your request...";
+                data.response || "No response received.";
+
 
             decision.textContent =
-                "Analyzing";
+                data.decision || "UNKNOWN";
 
 
-            try {
-
-                const response = await fetch("/chat", {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        employee_name: employeeName,
-
-                        message: message
-
-                    })
-
-                });
+            document.getElementById("source")
+                .textContent =
+                data.source || "Not specified";
 
 
-                const data = await response.json();
+            document.getElementById("resolution")
+                .textContent =
+                data.resolution || "Not specified";
 
 
-                responseText.textContent =
-                    data.response || "No response received.";
+            document.getElementById("followUp")
+                .textContent =
+                data.follow_up_question || "Not specified";
 
 
-                decision.textContent =
-                    data.decision || "UNKNOWN";
+            document.getElementById("ticketId")
+                .textContent =
+                data.ticket_id || "";
 
 
-                document.getElementById("source")
-                    .textContent =
-                    data.source || "Not specified";
+            document
+                .getElementById("sourceBox")
+                .classList.remove("hidden");
 
 
-                document.getElementById("resolution")
-                    .textContent =
-                    data.resolution || "Not specified";
-
-
-                document.getElementById("followUp")
-                    .textContent =
-                    data.follow_up_question || "Not specified";
-
-
-                document.getElementById("ticketId")
-                    .textContent =
-                    data.ticket_id || "";
-
+            if (data.decision === "RESOLVE") {
 
                 document
-                    .getElementById("sourceBox")
+                    .getElementById("resolutionBox")
                     .classList.remove("hidden");
 
+            } else {
 
-                if (data.decision === "RESOLVE") {
-
-                    document
-                        .getElementById("resolutionBox")
-                        .classList.remove("hidden");
-
-                } else {
-
-                    document
-                        .getElementById("resolutionBox")
-                        .classList.add("hidden");
-
-                }
-
-
-                if (data.decision === "FOLLOW_UP") {
-
-                    document
-                        .getElementById("followUpBox")
-                        .classList.remove("hidden");
-
-                } else {
-
-                    document
-                        .getElementById("followUpBox")
-                        .classList.add("hidden");
-
-                }
-
-
-                if (data.decision === "ESCALATE") {
-
-                    document
-                        .getElementById("ticketBox")
-                        .classList.remove("hidden");
-
-                } else {
-
-                    document
-                        .getElementById("ticketBox")
-                        .classList.add("hidden");
-
-                }
+                document
+                    .getElementById("resolutionBox")
+                    .classList.add("hidden");
 
             }
 
-            catch (error) {
 
-                responseText.textContent =
-                    "Unable to connect to the support agent.";
+            if (data.decision === "FOLLOW_UP") {
 
-                decision.textContent =
-                    "ERROR";
+                document
+                    .getElementById("followUpBox")
+                    .classList.remove("hidden");
 
-                console.error(error);
+            } else {
+
+                document
+                    .getElementById("followUpBox")
+                    .classList.add("hidden");
+
+            }
+
+
+            if (data.decision === "ESCALATE") {
+
+                document
+                    .getElementById("ticketBox")
+                    .classList.remove("hidden");
+
+            } else {
+
+                document
+                    .getElementById("ticketBox")
+                    .classList.add("hidden");
 
             }
 
         }
 
-    </script>
+        catch (error) {
+
+            responseText.textContent =
+                "Unable to connect to the support agent.";
+
+            decision.textContent =
+                "ERROR";
+
+            console.error(error);
+
+        }
+
+    }
+
+</script>
 
 </body>
 </html>

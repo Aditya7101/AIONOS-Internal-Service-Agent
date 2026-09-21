@@ -6,34 +6,131 @@
 
     <title>Ticket Queue - Veridian IT</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
 <div class="container">
 
+    <!-- HEADER -->
     <header class="header">
 
         <div>
-            <h1>Veridian IT Support</h1>
-            <p>Ticket Queue</p>
+            <h1>VERIDIAN CORP</h1>
+            <p>IT OPERATIONS · TICKET QUEUE</p>
         </div>
 
-        <nav>
-            <a href="/">Agent</a>
-            <a href="/tickets">Tickets</a>
-            <a href="/audit">Audit Trail</a>
-        </nav>
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:18px;
+        ">
+
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                gap:7px;
+                color:#15803d;
+                font-size:13px;
+                font-weight:700;
+                background:#f0fdf4;
+                padding:7px 11px;
+                border-radius:999px;
+                border:1px solid #bbf7d0;
+            ">
+                <span style="
+                    width:8px;
+                    height:8px;
+                    border-radius:50%;
+                    background:#22c55e;
+                    display:inline-block;
+                "></span>
+                System Online
+            </span>
+
+            <nav>
+                <a href="/">Agent</a>
+                <a href="/tickets">Tickets</a>
+                <a href="/audit">Audit Trail</a>
+            </nav>
+
+        </div>
 
     </header>
 
 
     <main>
 
+        <!-- PAGE INTRO -->
         <section class="page-card">
 
-            <h2>Escalated Tickets</h2>
+            <div style="
+                display:inline-block;
+                font-size:12px;
+                font-weight:800;
+                letter-spacing:1px;
+                color:#2563eb;
+                background:#eff6ff;
+                padding:6px 10px;
+                border-radius:7px;
+                margin-bottom:12px;
+            ">
+                IT OPERATIONS
+            </div>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:flex-end;
+                gap:20px;
+                flex-wrap:wrap;
+            ">
+
+                <div>
+
+                    <h2 style="margin-bottom:6px;">
+                        Escalated Tickets
+                    </h2>
+
+                    <p class="page-description">
+                        Requests that require human review or additional handling.
+                    </p>
+
+                </div>
+
+                <div style="
+                    min-width:110px;
+                    text-align:center;
+                    background:#f8fafc;
+                    border:1px solid #e2e8f0;
+                    border-radius:12px;
+                    padding:12px 18px;
+                ">
+
+                    <div style="
+                        font-size:24px;
+                        font-weight:800;
+                        color:#0f1f3d;
+                    ">
+                        {{ tickets|length }}
+                    </div>
+
+                    <div style="
+                        font-size:11px;
+                        font-weight:700;
+                        color:#64748b;
+                        text-transform:uppercase;
+                        letter-spacing:.5px;
+                    ">
+                        Total Tickets
+                    </div>
+
+                </div>
+
+            </div>
+
 
             {% if tickets %}
 
@@ -42,17 +139,20 @@
                 <table>
 
                     <thead>
+
                         <tr>
-                            <th>ID</th>
+                            <th>Ticket</th>
                             <th>Employee</th>
                             <th>Issue</th>
                             <th>Category</th>
                             <th>Priority</th>
                             <th>Status</th>
-                            <th>Source</th>
+                            <th>Policy Source</th>
                             <th>Created</th>
                         </tr>
+
                     </thead>
+
 
                     <tbody>
 
@@ -60,25 +160,163 @@
 
                         <tr>
 
-                            <td>TK-{{ ticket["id"] }}</td>
-
-                            <td>{{ ticket["employee_name"] }}</td>
-
-                            <td>{{ ticket["issue"] }}</td>
-
-                            <td>{{ ticket["category"] }}</td>
-
+                            <!-- TICKET ID -->
                             <td>
-                                <span class="priority">
-                                    {{ ticket["priority"] }}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:6px 9px;
+                                    border-radius:7px;
+                                    background:#eff6ff;
+                                    color:#1d4ed8;
+                                    font-weight:800;
+                                    font-size:12px;
+                                ">
+                                    TK-{{ ticket["id"] }}
                                 </span>
+
                             </td>
 
-                            <td>{{ ticket["status"] }}</td>
 
-                            <td>{{ ticket["source"] }}</td>
+                            <!-- EMPLOYEE -->
+                            <td>
 
-                            <td>{{ ticket["created_at"] }}</td>
+                                <strong style="color:#1e293b;">
+                                    {{ ticket["employee_name"] }}
+                                </strong>
+
+                            </td>
+
+
+                            <!-- ISSUE -->
+                            <td style="
+                                max-width:280px;
+                                line-height:1.5;
+                            ">
+
+                                {{ ticket["issue"] }}
+
+                            </td>
+
+
+                            <!-- CATEGORY -->
+                            <td>
+
+                                {{ ticket["category"] }}
+
+                            </td>
+
+
+                            <!-- PRIORITY -->
+                            <td>
+
+                                {% if ticket["priority"] == "High" %}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:5px 9px;
+                                    border-radius:999px;
+                                    background:#fef2f2;
+                                    color:#b91c1c;
+                                    font-size:12px;
+                                    font-weight:800;
+                                ">
+                                    High
+                                </span>
+
+                                {% elif ticket["priority"] == "Medium" %}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:5px 9px;
+                                    border-radius:999px;
+                                    background:#fff7ed;
+                                    color:#c2410c;
+                                    font-size:12px;
+                                    font-weight:800;
+                                ">
+                                    Medium
+                                </span>
+
+                                {% else %}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:5px 9px;
+                                    border-radius:999px;
+                                    background:#f0fdf4;
+                                    color:#15803d;
+                                    font-size:12px;
+                                    font-weight:800;
+                                ">
+                                    Low
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- STATUS -->
+                            <td>
+
+                                {% if ticket["status"] == "Escalated" %}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:5px 9px;
+                                    border-radius:999px;
+                                    background:#fff7ed;
+                                    color:#c2410c;
+                                    font-size:12px;
+                                    font-weight:800;
+                                ">
+                                    Escalated
+                                </span>
+
+                                {% else %}
+
+                                <span style="
+                                    display:inline-block;
+                                    padding:5px 9px;
+                                    border-radius:999px;
+                                    background:#f0fdf4;
+                                    color:#15803d;
+                                    font-size:12px;
+                                    font-weight:800;
+                                ">
+                                    {{ ticket["status"] }}
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- SOURCE -->
+                            <td>
+
+                                <span style="
+                                    color:#2563eb;
+                                    font-weight:700;
+                                    font-size:13px;
+                                ">
+                                    {{ ticket["source"] }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- CREATED -->
+                            <td style="
+                                white-space:nowrap;
+                                color:#64748b;
+                                font-size:13px;
+                            ">
+
+                                {{ ticket["created_at"] }}
+
+                            </td>
 
                         </tr>
 
@@ -90,13 +328,43 @@
 
             </div>
 
+
             {% else %}
 
             <div class="empty-state">
-                <h3>No tickets yet</h3>
+
+                <div style="
+                    width:58px;
+                    height:58px;
+                    margin:0 auto 15px;
+                    border-radius:16px;
+                    background:#eff6ff;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    color:#2563eb;
+                    font-size:25px;
+                ">
+                    ✓
+                </div>
+
+                <h3>No escalated tickets</h3>
+
                 <p>
-                    Escalated requests will appear here automatically.
+                    All current requests are either resolved or awaiting
+                    additional information.
                 </p>
+
+                <a href="/" style="
+                    display:inline-block;
+                    margin-top:18px;
+                    text-decoration:none;
+                    color:#2563eb;
+                    font-weight:700;
+                ">
+                    Return to Agent →
+                </a>
+
             </div>
 
             {% endif %}
