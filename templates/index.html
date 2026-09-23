@@ -11,358 +11,495 @@
           href="{{ url_for('static', filename='style.css') }}">
 </head>
 
+
 <body>
 
-<div class="container">
+<!-- =========================================================
+     TOP HEADER
+========================================================= -->
 
-    <!-- ================= HEADER ================= -->
+<header class="site-header">
 
-    <header class="header">
+    <div class="header-inner">
 
-        <div>
-            <h1>VERIDIAN CORP</h1>
-            <p>IT SERVICE DESK · INTERNAL SUPPORT</p>
-        </div>
+        <!-- BRAND -->
 
-        <nav>
+        <a href="/" class="brand">
+
+            <div class="brand-name">
+                VERIDIAN CORP
+            </div>
+
+            <div class="brand-subtitle">
+                IT SERVICE DESK · INTERNAL SUPPORT
+            </div>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
 
             <span class="agent-status">
                 <span class="status-dot"></span>
                 Agent Online
             </span>
 
-            <a href="/">Agent</a>
+            <a href="/" class="nav-link active">
+                Agent
+            </a>
 
-            <a href="/tickets">Tickets</a>
+            <a href="/tickets" class="nav-link">
+                Tickets
+            </a>
 
-            <a href="/audit">Audit Trail</a>
+            <a href="/audit" class="nav-link">
+                Audit Trail
+            </a>
 
         </nav>
 
-    </header>
+    </div>
+
+</header>
 
 
-    <main>
 
-        <!-- ================= HERO ================= -->
+<!-- =========================================================
+     MAIN PAGE
+========================================================= -->
 
-        <section class="hero-section">
+<main class="page-shell">
 
-            <div class="hero-content">
 
-                <div class="hero-badge">
-                    ✦ AI-POWERED INTERNAL SUPPORT
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ✦ AI-POWERED INTERNAL SUPPORT
+            </div>
+
+
+            <h1>
+                Your intelligent
+                <span>IT support</span>
+                assistant.
+            </h1>
+
+
+            <p class="hero-description">
+                Get fast, policy-grounded help for everyday IT issues.
+                Describe your problem and let the support agent guide you,
+                ask follow-up questions, or create a ticket.
+            </p>
+
+
+            <div class="hero-features">
+
+                <div class="feature-pill">
+                    <span>✓</span>
+                    Policy Grounded
                 </div>
 
-                <h2>
-                    Your intelligent
-                    <span>IT support</span>
-                    assistant.
-                </h2>
+                <div class="feature-pill">
+                    <span>✓</span>
+                    Source Cited
+                </div>
 
-                <p>
-                    Get fast, policy-grounded help for everyday IT issues.
-                    Describe your problem and let the support agent guide you,
-                    ask follow-up questions, or create a ticket.
-                </p>
-
-                <div class="hero-features">
-
-                    <div class="feature-pill">
-                        <span>✓</span>
-                        Policy Grounded
-                    </div>
-
-                    <div class="feature-pill">
-                        <span>✓</span>
-                        Source Cited
-                    </div>
-
-                    <div class="feature-pill">
-                        <span>✓</span>
-                        Human Escalation
-                    </div>
-
+                <div class="feature-pill">
+                    <span>✓</span>
+                    Human Escalation
                 </div>
 
             </div>
-
-        </section>
-
-
-        <!-- ================= REQUEST AREA ================= -->
-
-        <div class="request-layout">
-
-
-            <!-- ================= REQUEST FORM ================= -->
-
-            <section class="request-card">
-
-                <div class="request-heading">
-
-                    <div>
-
-                        <div class="section-label">
-                            SUPPORT REQUEST
-                        </div>
-
-                        <h2>
-                            Tell us what you need help with
-                        </h2>
-
-                        <p>
-                            Provide a few details and our AI support
-                            agent will analyze your request.
-                        </p>
-
-                    </div>
-
-                    <div class="request-icon">
-                        ✦
-                    </div>
-
-                </div>
-
-
-                <div class="form-content">
-
-                    <label for="employeeName">
-                        Employee Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="employeeName"
-                        placeholder="e.g. Aditi Sharma"
-                    >
-
-
-                    <label for="message">
-                        Describe your issue
-                    </label>
-
-                    <textarea
-                        id="message"
-                        rows="5"
-                        placeholder="Tell us what happened..."
-                    ></textarea>
-
-
-                    <!-- QUICK EXAMPLES -->
-
-                    <div class="examples-section">
-
-                        <div class="examples-title">
-                            QUICK EXAMPLES
-                        </div>
-
-                        <div class="example-buttons">
-
-                            <button
-                                type="button"
-                                class="example-button"
-                                onclick="setExample('My VPN credentials have expired. What should I do?')">
-                                VPN expired
-                            </button>
-
-                            <button
-                                type="button"
-                                class="example-button"
-                                onclick="setExample('My account password is locked. How can I reset it?')">
-                                Password locked
-                            </button>
-
-                            <button
-                                type="button"
-                                class="example-button"
-                                onclick="setExample('My printer is not working.')">
-                                Printer issue
-                            </button>
-
-                            <button
-                                type="button"
-                                class="example-button"
-                                onclick="setExample('I need help installing software.')">
-                                Software request
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="submit-button"
-                        onclick="sendMessage()">
-
-                        Submit Request
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- ================= SIDE INFORMATION ================= -->
-
-            <aside class="support-side">
-
-
-                <div class="side-card">
-
-                    <div class="side-icon">
-                        ✓
-                    </div>
-
-                    <h3>
-                        Knowledge-based answers
-                    </h3>
-
-                    <p>
-                        Responses are grounded in the Veridian
-                        internal knowledge base.
-                    </p>
-
-                </div>
-
-
-                <div class="side-card">
-
-                    <div class="side-icon">
-                        →
-                    </div>
-
-                    <h3>
-                        Smart escalation
-                    </h3>
-
-                    <p>
-                        Requests that need human assistance can
-                        automatically become support tickets.
-                    </p>
-
-                </div>
-
-
-                <div class="side-card">
-
-                    <div class="side-icon">
-                        ◎
-                    </div>
-
-                    <h3>
-                        Traceable activity
-                    </h3>
-
-                    <p>
-                        Agent interactions are recorded in the
-                        audit trail for visibility.
-                    </p>
-
-                </div>
-
-            </aside>
 
         </div>
 
 
-        <!-- ================= RESULT ================= -->
+        <!-- Decorative graphic -->
 
-        <section id="result" class="result-card hidden">
+        <div class="hero-decoration">
 
-            <div class="decision" id="decision">
-                ANALYZING
-            </div>
+            <div class="glow-circle circle-one"></div>
+            <div class="glow-circle circle-two"></div>
 
-            <h3>
-                Agent Response
-            </h3>
+            <div class="ai-card">
 
-            <p id="response">
-                Processing your request...
-            </p>
+                <div class="ai-card-top">
+                    <span class="ai-dot"></span>
+                    Veridian AI
+                </div>
 
+                <div class="ai-message user-message">
+                    VPN credentials expired
+                </div>
 
-            <div id="sourceBox" class="info-box hidden">
-
-                <strong>
-                    Policy Source
-                </strong>
-
-                <span id="source"></span>
+                <div class="ai-message agent-message">
+                    I'll check the internal support policy
+                    and guide you through the next step.
+                </div>
 
             </div>
 
+        </div>
 
-            <div id="resolutionBox" class="info-box hidden">
+    </section>
 
-                <strong>
-                    Resolution
-                </strong>
 
-                <span id="resolution"></span>
+
+    <!-- =====================================================
+         REQUEST AREA
+    ====================================================== -->
+
+    <section class="request-layout">
+
+
+        <!-- =================================================
+             REQUEST FORM
+        ================================================== -->
+
+        <div class="request-card">
+
+
+            <div class="request-heading">
+
+                <div>
+
+                    <div class="section-label">
+                        SUPPORT REQUEST
+                    </div>
+
+                    <h2>
+                        Tell us what you need help with
+                    </h2>
+
+                    <p>
+                        Provide a few details and our AI support
+                        agent will analyze your request.
+                    </p>
+
+                </div>
+
+
+                <div class="request-icon">
+                    ✦
+                </div>
 
             </div>
 
 
-            <div id="followUpBox" class="info-box hidden">
 
-                <strong>
-                    Follow-up Question
-                </strong>
+            <div class="form-content">
 
-                <span id="followUp"></span>
+
+                <!-- EMPLOYEE -->
+
+                <label for="employeeName">
+                    Employee Name
+                </label>
+
+                <input
+                    type="text"
+                    id="employeeName"
+                    placeholder="e.g. Aditi Sharma"
+                >
+
+
+
+                <!-- ISSUE -->
+
+                <label for="message">
+                    Describe your issue
+                </label>
+
+                <textarea
+                    id="message"
+                    rows="5"
+                    placeholder="Tell us what happened..."
+                ></textarea>
+
+
+
+                <!-- QUICK EXAMPLES -->
+
+                <div class="examples-section">
+
+                    <div class="examples-title">
+                        QUICK EXAMPLES
+                    </div>
+
+
+                    <div class="example-buttons">
+
+                        <button
+                            type="button"
+                            class="example-button"
+                            onclick="setExample('My VPN credentials have expired. What should I do?')">
+                            VPN expired
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="example-button"
+                            onclick="setExample('My account password is locked. How can I reset it?')">
+                            Password locked
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="example-button"
+                            onclick="setExample('My printer is not working.')">
+                            Printer issue
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="example-button"
+                            onclick="setExample('I need help installing software.')">
+                            Software request
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="button"
+                    class="submit-button"
+                    onclick="sendMessage()">
+
+                    Submit Request
+                    <span>→</span>
+
+                </button>
 
             </div>
 
+        </div>
 
-            <div id="ticketBox" class="ticket-box hidden">
 
-                <strong>
-                    Ticket Created
-                </strong>
+
+        <!-- =================================================
+             SIDE INFORMATION
+        ================================================== -->
+
+        <aside class="support-side">
+
+
+            <div class="side-card">
+
+                <div class="side-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Knowledge-based answers
+                </h3>
 
                 <p>
-                    Ticket ID:
-                    <span id="ticketId"></span>
+                    Responses are grounded in the Veridian
+                    internal knowledge base.
                 </p>
-
-                <a href="/tickets">
-                    View Ticket Queue →
-                </a>
 
             </div>
 
-        </section>
 
-    </main>
 
-</div>
+            <div class="side-card">
 
+                <div class="side-icon">
+                    →
+                </div>
+
+                <h3>
+                    Smart escalation
+                </h3>
+
+                <p>
+                    Requests that need human assistance can
+                    automatically become support tickets.
+                </p>
+
+            </div>
+
+
+
+            <div class="side-card">
+
+                <div class="side-icon">
+                    ◎
+                </div>
+
+                <h3>
+                    Traceable activity
+                </h3>
+
+                <p>
+                    Agent interactions are recorded in the
+                    audit trail for visibility.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RESULT
+    ====================================================== -->
+
+    <section
+        id="result"
+        class="result-card hidden">
+
+
+        <div
+            class="decision"
+            id="decision">
+
+            ANALYZING
+
+        </div>
+
+
+        <h2>
+            Agent Response
+        </h2>
+
+
+        <p
+            id="response"
+            class="response-text">
+
+            Processing your request...
+
+        </p>
+
+
+
+        <!-- SOURCE -->
+
+        <div
+            id="sourceBox"
+            class="info-box hidden">
+
+            <strong>
+                Policy Source
+            </strong>
+
+            <span id="source"></span>
+
+        </div>
+
+
+
+        <!-- RESOLUTION -->
+
+        <div
+            id="resolutionBox"
+            class="info-box hidden">
+
+            <strong>
+                Resolution
+            </strong>
+
+            <span id="resolution"></span>
+
+        </div>
+
+
+
+        <!-- FOLLOW UP -->
+
+        <div
+            id="followUpBox"
+            class="info-box hidden">
+
+            <strong>
+                Follow-up Question
+            </strong>
+
+            <span id="followUp"></span>
+
+        </div>
+
+
+
+        <!-- TICKET -->
+
+        <div
+            id="ticketBox"
+            class="ticket-box hidden">
+
+            <strong>
+                Ticket Created
+            </strong>
+
+            <p>
+                Ticket ID:
+                <span id="ticketId"></span>
+            </p>
+
+            <a href="/tickets">
+                View Ticket Queue →
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script>
 
-/* =========================
+
+/* =========================================================
    QUICK EXAMPLES
-========================= */
+========================================================= */
 
 function setExample(text) {
 
-    document.getElementById("message").value = text;
+    document
+        .getElementById("message")
+        .value = text;
 
-    document.getElementById("message").focus();
+    document
+        .getElementById("message")
+        .focus();
 
 }
 
 
-/* =========================
+
+/* =========================================================
    SEND REQUEST
-========================= */
+========================================================= */
 
 async function sendMessage() {
+
 
     const employeeName =
         document
@@ -378,6 +515,7 @@ async function sendMessage() {
             .trim();
 
 
+
     if (!message) {
 
         alert("Please describe your IT issue.");
@@ -385,6 +523,7 @@ async function sendMessage() {
         return;
 
     }
+
 
 
     const result =
@@ -397,6 +536,7 @@ async function sendMessage() {
 
     const decision =
         document.getElementById("decision");
+
 
 
     /* Show result */
@@ -412,6 +552,7 @@ async function sendMessage() {
         "ANALYZING";
 
 
+
     /* Scroll to response */
 
     result.scrollIntoView({
@@ -420,29 +561,36 @@ async function sendMessage() {
     });
 
 
+
     try {
 
-        const response = await fetch("/chat", {
 
-            method: "POST",
+        const response =
+            await fetch("/chat", {
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+                method: "POST",
 
-            body: JSON.stringify({
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-                employee_name: employeeName,
+                body: JSON.stringify({
 
-                message: message
+                    employee_name:
+                        employeeName,
 
-            })
+                    message:
+                        message
 
-        });
+                })
+
+            });
+
 
 
         const data =
             await response.json();
+
 
 
         /* Agent response */
@@ -457,6 +605,7 @@ async function sendMessage() {
             "UNKNOWN";
 
 
+
         /* Source */
 
         document
@@ -464,6 +613,7 @@ async function sendMessage() {
             .textContent =
             data.source ||
             "Not specified";
+
 
 
         /* Resolution */
@@ -475,6 +625,7 @@ async function sendMessage() {
             "Not specified";
 
 
+
         /* Follow-up */
 
         document
@@ -482,6 +633,7 @@ async function sendMessage() {
             .textContent =
             data.follow_up_question ||
             "Not specified";
+
 
 
         /* Ticket */
@@ -493,11 +645,14 @@ async function sendMessage() {
             "";
 
 
+
         /* Source always visible */
 
         document
             .getElementById("sourceBox")
-            .classList.remove("hidden");
+            .classList
+            .remove("hidden");
+
 
 
         /* Resolution */
@@ -519,6 +674,7 @@ async function sendMessage() {
         }
 
 
+
         /* Follow-up */
 
         if (data.decision === "FOLLOW_UP") {
@@ -536,6 +692,7 @@ async function sendMessage() {
                 .add("hidden");
 
         }
+
 
 
         /* Ticket */
@@ -564,10 +721,8 @@ async function sendMessage() {
         responseText.textContent =
             "Unable to connect to the support agent.";
 
-
         decision.textContent =
             "ERROR";
-
 
         console.error(error);
 
@@ -576,6 +731,7 @@ async function sendMessage() {
 }
 
 </script>
+
 
 </body>
 
