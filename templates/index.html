@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Veridian IT Service Desk</title>
+    <title>Veridian IT Support Agent</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -14,7 +15,8 @@
 
 <div class="container">
 
-    <!-- HEADER -->
+    <!-- ================= HEADER ================= -->
+
     <header class="header">
 
         <div>
@@ -22,271 +24,273 @@
             <p>IT SERVICE DESK · INTERNAL SUPPORT</p>
         </div>
 
-        <div style="display:flex; align-items:center; gap:18px;">
+        <nav>
 
-            <span style="
-                display:inline-flex;
-                align-items:center;
-                gap:7px;
-                color:#15803d;
-                font-size:13px;
-                font-weight:700;
-                background:#f0fdf4;
-                padding:7px 11px;
-                border-radius:999px;
-                border:1px solid #bbf7d0;
-            ">
-                <span style="
-                    width:8px;
-                    height:8px;
-                    border-radius:50%;
-                    background:#22c55e;
-                    display:inline-block;
-                "></span>
+            <span class="agent-status">
+                <span class="status-dot"></span>
                 Agent Online
             </span>
 
-            <nav>
-                <a href="/">Agent</a>
-                <a href="/tickets">Tickets</a>
-                <a href="/audit">Audit Trail</a>
-            </nav>
+            <a href="/">Agent</a>
 
-        </div>
+            <a href="/tickets">Tickets</a>
+
+            <a href="/audit">Audit Trail</a>
+
+        </nav>
 
     </header>
 
 
     <main>
 
-        <!-- WELCOME -->
-        <section class="welcome-card">
+        <!-- ================= HERO ================= -->
 
-            <div style="
-                display:inline-block;
-                font-size:12px;
-                font-weight:800;
-                letter-spacing:1px;
-                color:#2563eb;
-                background:#eff6ff;
-                padding:6px 10px;
-                border-radius:7px;
-                margin-bottom:12px;
-            ">
-                AI-POWERED INTERNAL SUPPORT
-            </div>
+        <section class="hero-section">
 
-            <h2>How can we help?</h2>
+            <div class="hero-content">
 
-            <p>
-                Describe your IT issue and the support agent will use
-                the Veridian knowledge base to provide policy-grounded
-                guidance, ask necessary questions, or escalate the request.
-            </p>
+                <div class="hero-badge">
+                    ✦ AI-POWERED INTERNAL SUPPORT
+                </div>
 
-            <div style="
-                display:flex;
-                gap:9px;
-                flex-wrap:wrap;
-                margin-top:18px;
-            ">
-
-                <span style="
-                    background:#f8fafc;
-                    border:1px solid #e2e8f0;
-                    padding:7px 11px;
-                    border-radius:8px;
-                    font-size:12px;
-                    font-weight:700;
-                    color:#475569;
-                ">
-                    ✓ Policy Grounded
-                </span>
-
-                <span style="
-                    background:#f8fafc;
-                    border:1px solid #e2e8f0;
-                    padding:7px 11px;
-                    border-radius:8px;
-                    font-size:12px;
-                    font-weight:700;
-                    color:#475569;
-                ">
-                    ✓ Source Cited
-                </span>
-
-                <span style="
-                    background:#f8fafc;
-                    border:1px solid #e2e8f0;
-                    padding:7px 11px;
-                    border-radius:8px;
-                    font-size:12px;
-                    font-weight:700;
-                    color:#475569;
-                ">
-                    ✓ Human Escalation
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <!-- REQUEST FORM -->
-        <section class="input-card">
-
-            <div style="margin-bottom:20px;">
-
-                <h2 style="
-                    color:#0f1f3d;
-                    font-size:21px;
-                    margin-bottom:5px;
-                ">
-                    Submit an IT Request
+                <h2>
+                    Your intelligent
+                    <span>IT support</span>
+                    assistant.
                 </h2>
 
-                <p style="
-                    color:#64748b;
-                    font-size:14px;
-                ">
-                    Provide enough detail so the agent can assist you accurately.
+                <p>
+                    Get fast, policy-grounded help for everyday IT issues.
+                    Describe your problem and let the support agent guide you,
+                    ask follow-up questions, or create a ticket.
                 </p>
 
-            </div>
+                <div class="hero-features">
 
+                    <div class="feature-pill">
+                        <span>✓</span>
+                        Policy Grounded
+                    </div>
 
-            <label for="employeeName">
-                Employee Name
-            </label>
+                    <div class="feature-pill">
+                        <span>✓</span>
+                        Source Cited
+                    </div>
 
-            <input
-                type="text"
-                id="employeeName"
-                placeholder="e.g. Aditi Sharma"
-            >
-
-
-            <label for="message">
-                Describe your issue
-            </label>
-
-            <textarea
-                id="message"
-                rows="5"
-                placeholder="e.g. My VPN stopped working because my credentials expired."
-            ></textarea>
-
-
-            <!-- QUICK EXAMPLES -->
-            <div style="margin-top:15px;">
-
-                <p style="
-                    color:#64748b;
-                    font-size:12px;
-                    font-weight:700;
-                    margin-bottom:9px;
-                ">
-                    QUICK EXAMPLES
-                </p>
-
-                <div style="
-                    display:flex;
-                    flex-wrap:wrap;
-                    gap:8px;
-                ">
-
-                    <button
-                        type="button"
-                        onclick="useExample('My VPN credentials have expired. What should I do?')"
-                        style="
-                            margin:0;
-                            padding:8px 11px;
-                            background:#f8fafc;
-                            color:#334155;
-                            border:1px solid #dbe4f0;
-                            box-shadow:none;
-                            font-size:12px;
-                        "
-                    >
-                        VPN expired
-                    </button>
-
-                    <button
-                        type="button"
-                        onclick="useExample('I am locked out after entering my password incorrectly multiple times.')"
-                        style="
-                            margin:0;
-                            padding:8px 11px;
-                            background:#f8fafc;
-                            color:#334155;
-                            border:1px solid #dbe4f0;
-                            box-shadow:none;
-                            font-size:12px;
-                        "
-                    >
-                        Password locked
-                    </button>
-
-                    <button
-                        type="button"
-                        onclick="useExample('My printer is not working and I need help troubleshooting it.')"
-                        style="
-                            margin:0;
-                            padding:8px 11px;
-                            background:#f8fafc;
-                            color:#334155;
-                            border:1px solid #dbe4f0;
-                            box-shadow:none;
-                            font-size:12px;
-                        "
-                    >
-                        Printer issue
-                    </button>
-
-                    <button
-                        type="button"
-                        onclick="useExample('I need to install software that is not available in the approved catalog.')"
-                        style="
-                            margin:0;
-                            padding:8px 11px;
-                            background:#f8fafc;
-                            color:#334155;
-                            border:1px solid #dbe4f0;
-                            box-shadow:none;
-                            font-size:12px;
-                        "
-                    >
-                        Software request
-                    </button>
+                    <div class="feature-pill">
+                        <span>✓</span>
+                        Human Escalation
+                    </div>
 
                 </div>
 
             </div>
 
-
-            <button
-                onclick="sendMessage()"
-                style="margin-top:20px;"
-            >
-                Submit Request
-            </button>
-
         </section>
 
 
-        <!-- RESULT -->
+        <!-- ================= REQUEST AREA ================= -->
+
+        <div class="request-layout">
+
+
+            <!-- ================= REQUEST FORM ================= -->
+
+            <section class="request-card">
+
+                <div class="request-heading">
+
+                    <div>
+
+                        <div class="section-label">
+                            SUPPORT REQUEST
+                        </div>
+
+                        <h2>
+                            Tell us what you need help with
+                        </h2>
+
+                        <p>
+                            Provide a few details and our AI support
+                            agent will analyze your request.
+                        </p>
+
+                    </div>
+
+                    <div class="request-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <div class="form-content">
+
+                    <label for="employeeName">
+                        Employee Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="employeeName"
+                        placeholder="e.g. Aditi Sharma"
+                    >
+
+
+                    <label for="message">
+                        Describe your issue
+                    </label>
+
+                    <textarea
+                        id="message"
+                        rows="5"
+                        placeholder="Tell us what happened..."
+                    ></textarea>
+
+
+                    <!-- QUICK EXAMPLES -->
+
+                    <div class="examples-section">
+
+                        <div class="examples-title">
+                            QUICK EXAMPLES
+                        </div>
+
+                        <div class="example-buttons">
+
+                            <button
+                                type="button"
+                                class="example-button"
+                                onclick="setExample('My VPN credentials have expired. What should I do?')">
+                                VPN expired
+                            </button>
+
+                            <button
+                                type="button"
+                                class="example-button"
+                                onclick="setExample('My account password is locked. How can I reset it?')">
+                                Password locked
+                            </button>
+
+                            <button
+                                type="button"
+                                class="example-button"
+                                onclick="setExample('My printer is not working.')">
+                                Printer issue
+                            </button>
+
+                            <button
+                                type="button"
+                                class="example-button"
+                                onclick="setExample('I need help installing software.')">
+                                Software request
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="submit-button"
+                        onclick="sendMessage()">
+
+                        Submit Request
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SIDE INFORMATION ================= -->
+
+            <aside class="support-side">
+
+
+                <div class="side-card">
+
+                    <div class="side-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Knowledge-based answers
+                    </h3>
+
+                    <p>
+                        Responses are grounded in the Veridian
+                        internal knowledge base.
+                    </p>
+
+                </div>
+
+
+                <div class="side-card">
+
+                    <div class="side-icon">
+                        →
+                    </div>
+
+                    <h3>
+                        Smart escalation
+                    </h3>
+
+                    <p>
+                        Requests that need human assistance can
+                        automatically become support tickets.
+                    </p>
+
+                </div>
+
+
+                <div class="side-card">
+
+                    <div class="side-icon">
+                        ◎
+                    </div>
+
+                    <h3>
+                        Traceable activity
+                    </h3>
+
+                    <p>
+                        Agent interactions are recorded in the
+                        audit trail for visibility.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- ================= RESULT ================= -->
+
         <section id="result" class="result-card hidden">
 
-            <div class="decision" id="decision"></div>
+            <div class="decision" id="decision">
+                ANALYZING
+            </div>
 
-            <h3>Agent Response</h3>
+            <h3>
+                Agent Response
+            </h3>
 
-            <p id="response"></p>
+            <p id="response">
+                Processing your request...
+            </p>
 
 
             <div id="sourceBox" class="info-box hidden">
 
-                <strong>Policy Source</strong>
+                <strong>
+                    Policy Source
+                </strong>
 
                 <span id="source"></span>
 
@@ -295,7 +299,9 @@
 
             <div id="resolutionBox" class="info-box hidden">
 
-                <strong>Resolution / Next Step</strong>
+                <strong>
+                    Resolution
+                </strong>
 
                 <span id="resolution"></span>
 
@@ -304,7 +310,9 @@
 
             <div id="followUpBox" class="info-box hidden">
 
-                <strong>Follow-up Question</strong>
+                <strong>
+                    Follow-up Question
+                </strong>
 
                 <span id="followUp"></span>
 
@@ -313,7 +321,9 @@
 
             <div id="ticketBox" class="ticket-box hidden">
 
-                <strong>Ticket Created</strong>
+                <strong>
+                    Ticket Created
+                </strong>
 
                 <p>
                     Ticket ID:
@@ -335,171 +345,238 @@
 
 <script>
 
-    function useExample(text) {
+/* =========================
+   QUICK EXAMPLES
+========================= */
 
-        document.getElementById("message").value = text;
+function setExample(text) {
 
-        document.getElementById("message").focus();
+    document.getElementById("message").value = text;
+
+    document.getElementById("message").focus();
+
+}
+
+
+/* =========================
+   SEND REQUEST
+========================= */
+
+async function sendMessage() {
+
+    const employeeName =
+        document
+            .getElementById("employeeName")
+            .value
+            .trim();
+
+
+    const message =
+        document
+            .getElementById("message")
+            .value
+            .trim();
+
+
+    if (!message) {
+
+        alert("Please describe your IT issue.");
+
+        return;
 
     }
 
 
-    async function sendMessage() {
-
-        const employeeName =
-            document.getElementById("employeeName").value.trim();
-
-        const message =
-            document.getElementById("message").value.trim();
+    const result =
+        document.getElementById("result");
 
 
-        if (!message) {
-
-            alert("Please describe your IT issue.");
-
-            return;
-        }
+    const responseText =
+        document.getElementById("response");
 
 
-        const result =
-            document.getElementById("result");
-
-        const responseText =
-            document.getElementById("response");
-
-        const decision =
-            document.getElementById("decision");
+    const decision =
+        document.getElementById("decision");
 
 
-        result.classList.remove("hidden");
+    /* Show result */
 
+    result.classList.remove("hidden");
+
+
+    responseText.textContent =
+        "Processing your request...";
+
+
+    decision.textContent =
+        "ANALYZING";
+
+
+    /* Scroll to response */
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+
+    try {
+
+        const response = await fetch("/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                employee_name: employeeName,
+
+                message: message
+
+            })
+
+        });
+
+
+        const data =
+            await response.json();
+
+
+        /* Agent response */
 
         responseText.textContent =
-            "Processing your request...";
+            data.response ||
+            "No response received.";
 
 
         decision.textContent =
-            "ANALYZING";
+            data.decision ||
+            "UNKNOWN";
 
 
-        try {
+        /* Source */
 
-            const response = await fetch("/chat", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    employee_name: employeeName,
-
-                    message: message
-
-                })
-
-            });
+        document
+            .getElementById("source")
+            .textContent =
+            data.source ||
+            "Not specified";
 
 
-            const data = await response.json();
+        /* Resolution */
+
+        document
+            .getElementById("resolution")
+            .textContent =
+            data.resolution ||
+            "Not specified";
 
 
-            responseText.textContent =
-                data.response || "No response received.";
+        /* Follow-up */
+
+        document
+            .getElementById("followUp")
+            .textContent =
+            data.follow_up_question ||
+            "Not specified";
 
 
-            decision.textContent =
-                data.decision || "UNKNOWN";
+        /* Ticket */
+
+        document
+            .getElementById("ticketId")
+            .textContent =
+            data.ticket_id ||
+            "";
 
 
-            document.getElementById("source")
-                .textContent =
-                data.source || "Not specified";
+        /* Source always visible */
+
+        document
+            .getElementById("sourceBox")
+            .classList.remove("hidden");
 
 
-            document.getElementById("resolution")
-                .textContent =
-                data.resolution || "Not specified";
+        /* Resolution */
 
-
-            document.getElementById("followUp")
-                .textContent =
-                data.follow_up_question || "Not specified";
-
-
-            document.getElementById("ticketId")
-                .textContent =
-                data.ticket_id || "";
-
+        if (data.decision === "RESOLVE") {
 
             document
-                .getElementById("sourceBox")
-                .classList.remove("hidden");
+                .getElementById("resolutionBox")
+                .classList
+                .remove("hidden");
 
+        } else {
 
-            if (data.decision === "RESOLVE") {
-
-                document
-                    .getElementById("resolutionBox")
-                    .classList.remove("hidden");
-
-            } else {
-
-                document
-                    .getElementById("resolutionBox")
-                    .classList.add("hidden");
-
-            }
-
-
-            if (data.decision === "FOLLOW_UP") {
-
-                document
-                    .getElementById("followUpBox")
-                    .classList.remove("hidden");
-
-            } else {
-
-                document
-                    .getElementById("followUpBox")
-                    .classList.add("hidden");
-
-            }
-
-
-            if (data.decision === "ESCALATE") {
-
-                document
-                    .getElementById("ticketBox")
-                    .classList.remove("hidden");
-
-            } else {
-
-                document
-                    .getElementById("ticketBox")
-                    .classList.add("hidden");
-
-            }
+            document
+                .getElementById("resolutionBox")
+                .classList
+                .add("hidden");
 
         }
 
-        catch (error) {
 
-            responseText.textContent =
-                "Unable to connect to the support agent.";
+        /* Follow-up */
 
-            decision.textContent =
-                "ERROR";
+        if (data.decision === "FOLLOW_UP") {
 
-            console.error(error);
+            document
+                .getElementById("followUpBox")
+                .classList
+                .remove("hidden");
+
+        } else {
+
+            document
+                .getElementById("followUpBox")
+                .classList
+                .add("hidden");
+
+        }
+
+
+        /* Ticket */
+
+        if (data.decision === "ESCALATE") {
+
+            document
+                .getElementById("ticketBox")
+                .classList
+                .remove("hidden");
+
+        } else {
+
+            document
+                .getElementById("ticketBox")
+                .classList
+                .add("hidden");
 
         }
 
     }
+
+
+    catch (error) {
+
+        responseText.textContent =
+            "Unable to connect to the support agent.";
+
+
+        decision.textContent =
+            "ERROR";
+
+
+        console.error(error);
+
+    }
+
+}
 
 </script>
 
 </body>
+
 </html>
