@@ -1,379 +1,415 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ticket Queue - Veridian IT</title>
+    <title>Support Tickets | Veridian AI</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='tickets.css') }}">
 </head>
 
-<body>
+<body class="tickets-page">
 
-<div class="container">
+<header class="site-header">
+    <div class="header-inner">
 
-    <!-- HEADER -->
-    <header class="header">
+        <a class="brand" href="/">
+            <span class="brand-name">VERIDIAN AI</span>
+            <span class="brand-subtitle">INTERNAL IT SUPPORT</span>
+        </a>
 
-        <div>
-            <h1>VERIDIAN CORP</h1>
-            <p>IT OPERATIONS · TICKET QUEUE</p>
-        </div>
-
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:18px;
-        ">
-
-            <span style="
-                display:inline-flex;
-                align-items:center;
-                gap:7px;
-                color:#15803d;
-                font-size:13px;
-                font-weight:700;
-                background:#f0fdf4;
-                padding:7px 11px;
-                border-radius:999px;
-                border:1px solid #bbf7d0;
-            ">
-                <span style="
-                    width:8px;
-                    height:8px;
-                    border-radius:50%;
-                    background:#22c55e;
-                    display:inline-block;
-                "></span>
+        <div class="tickets-header-right">
+            <span class="agent-status">
+                <span class="status-dot"></span>
                 System Online
             </span>
 
-            <nav>
-                <a href="/">Agent</a>
-                <a href="/tickets">Tickets</a>
-                <a href="/audit">Audit Trail</a>
+            <nav class="main-nav">
+                <a class="nav-link" href="/">Agent</a>
+                <a class="nav-link active" href="/tickets">Tickets</a>
+                <a class="nav-link" href="/audit">Audit Trail</a>
             </nav>
+        </div>
+
+    </div>
+</header>
+
+<main class="page-shell tickets-shell">
+
+    <!-- PAGE INTRO -->
+    <section class="tickets-intro">
+
+        <div>
+            <span class="tickets-eyebrow">IT OPERATIONS</span>
+
+            <h1>Support tickets</h1>
+
+            <p>
+                Review escalated employee requests and track support activity.
+            </p>
+        </div>
+
+        <a class="tickets-primary-link" href="/">
+            + New support request
+        </a>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    {% set ns = namespace(escalated=0, high=0, resolved=0) %}
+
+    {% for ticket in tickets %}
+
+        {% if ticket["status"] == "Escalated" %}
+            {% set ns.escalated = ns.escalated + 1 %}
+        {% endif %}
+
+        {% if ticket["priority"] == "High" %}
+            {% set ns.high = ns.high + 1 %}
+        {% endif %}
+
+        {% if ticket["status"] == "Resolved" %}
+            {% set ns.resolved = ns.resolved + 1 %}
+        {% endif %}
+
+    {% endfor %}
+
+
+    <section class="ticket-stats">
+
+        <article class="ticket-stat-card">
+            <div class="ticket-stat-icon stat-icon-blue">▤</div>
+
+            <div>
+                <span class="ticket-stat-label">Total tickets</span>
+                <strong>{{ tickets|length }}</strong>
+                <small>All recorded requests</small>
+            </div>
+        </article>
+
+
+        <article class="ticket-stat-card">
+            <div class="ticket-stat-icon stat-icon-orange">↗</div>
+
+            <div>
+                <span class="ticket-stat-label">Escalated</span>
+                <strong>{{ ns.escalated }}</strong>
+                <small>Require human handling</small>
+            </div>
+        </article>
+
+
+        <article class="ticket-stat-card">
+            <div class="ticket-stat-icon stat-icon-red">!</div>
+
+            <div>
+                <span class="ticket-stat-label">High priority</span>
+                <strong>{{ ns.high }}</strong>
+                <small>Marked high priority</small>
+            </div>
+        </article>
+
+
+        <article class="ticket-stat-card">
+            <div class="ticket-stat-icon stat-icon-green">✓</div>
+
+            <div>
+                <span class="ticket-stat-label">Resolved</span>
+                <strong>{{ ns.resolved }}</strong>
+                <small>Marked as resolved</small>
+            </div>
+        </article>
+
+    </section>
+
+
+    <!-- TICKET TABLE -->
+    <section class="ticket-panel">
+
+        <div class="ticket-panel-heading">
+
+            <div>
+                <h2>All tickets</h2>
+                <p>Search and filter the support queue.</p>
+            </div>
+
+            <span class="ticket-record-count">
+                {{ tickets|length }} records
+            </span>
 
         </div>
 
-    </header>
+
+        <!-- SEARCH AND FILTERS -->
+        <div class="ticket-toolbar">
+
+            <label class="ticket-search">
+                <span>⌕</span>
+
+                <input
+                    id="ticketSearch"
+                    type="search"
+                    placeholder="Search ID, employee, issue or category..."
+                    autocomplete="off">
+            </label>
 
 
-    <main>
+            <select id="priorityFilter">
+                <option value="">All priorities</option>
+                <option value="high">High priority</option>
+                <option value="medium">Medium priority</option>
+                <option value="low">Low priority</option>
+            </select>
 
-        <!-- PAGE INTRO -->
-        <section class="page-card">
 
-            <div style="
-                display:inline-block;
-                font-size:12px;
-                font-weight:800;
-                letter-spacing:1px;
-                color:#2563eb;
-                background:#eff6ff;
-                padding:6px 10px;
-                border-radius:7px;
-                margin-bottom:12px;
-            ">
-                IT OPERATIONS
+            <select id="statusFilter">
+                <option value="">All statuses</option>
+                <option value="escalated">Escalated</option>
+                <option value="resolved">Resolved</option>
+                <option value="open">Open</option>
+                <option value="in progress">In progress</option>
+            </select>
+
+
+            <button class="ticket-reset" id="resetFilters" type="button">
+                Reset
+            </button>
+
+        </div>
+
+
+        {% if tickets %}
+
+        <div class="ticket-table-wrap">
+
+            <table class="ticket-table">
+
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Employee</th>
+                        <th>Issue</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Policy Source</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+
+
+                <tbody id="ticketTableBody">
+
+                    {% for ticket in tickets %}
+
+                    <tr
+                        data-search="{{ ('TK-' ~ ticket['id'] ~ ' ' ~ (ticket['employee_name'] or '') ~ ' ' ~ (ticket['issue'] or '') ~ ' ' ~ (ticket['category'] or '') ~ ' ' ~ (ticket['source'] or ''))|lower }}"
+                        data-priority="{{ (ticket['priority'] or '')|lower }}"
+                        data-status="{{ (ticket['status'] or '')|lower }}">
+
+                        <td>
+                            <span class="ticket-id">
+                                TK-{{ ticket["id"] }}
+                            </span>
+                        </td>
+
+
+                        <td>
+                            <span class="ticket-employee">
+                                {{ ticket["employee_name"] or "Unknown" }}
+                            </span>
+                        </td>
+
+
+                        <td class="ticket-issue">
+                            {{ ticket["issue"] or "No issue description" }}
+                        </td>
+
+
+                        <td>
+                            {{ ticket["category"] or "Uncategorized" }}
+                        </td>
+
+
+                        <td>
+                            <span class="ticket-badge priority-{{ (ticket['priority'] or 'unknown')|lower }}">
+                                {{ ticket["priority"] or "Unspecified" }}
+                            </span>
+                        </td>
+
+
+                        <td>
+                            <span class="ticket-badge status-{{ (ticket['status'] or 'unknown')|lower|replace(' ', '-') }}">
+                                {{ ticket["status"] or "Unknown" }}
+                            </span>
+                        </td>
+
+
+                        <td class="ticket-source">
+                            {{ ticket["source"] or "—" }}
+                        </td>
+
+
+                        <td class="ticket-date">
+                            {{ ticket["created_at"] or "—" }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+            <div class="ticket-no-results" id="noResults" hidden>
+                <strong>No matching tickets</strong>
+                <span>Try changing your search or filters.</span>
             </div>
 
-            <div style="
-                display:flex;
-                justify-content:space-between;
-                align-items:flex-end;
-                gap:20px;
-                flex-wrap:wrap;
-            ">
+        </div>
 
-                <div>
 
-                    <h2 style="margin-bottom:6px;">
-                        Escalated Tickets
-                    </h2>
+        {% else %}
 
-                    <p class="page-description">
-                        Requests that require human review or additional handling.
-                    </p>
+        <div class="ticket-empty-state">
 
-                </div>
+            <div class="ticket-empty-icon">✓</div>
 
-                <div style="
-                    min-width:110px;
-                    text-align:center;
-                    background:#f8fafc;
-                    border:1px solid #e2e8f0;
-                    border-radius:12px;
-                    padding:12px 18px;
-                ">
+            <h3>No support tickets yet</h3>
 
-                    <div style="
-                        font-size:24px;
-                        font-weight:800;
-                        color:#0f1f3d;
-                    ">
-                        {{ tickets|length }}
-                    </div>
+            <p>
+                When the AI agent escalates an employee request,
+                the ticket will appear here.
+            </p>
 
-                    <div style="
-                        font-size:11px;
-                        font-weight:700;
-                        color:#64748b;
-                        text-transform:uppercase;
-                        letter-spacing:.5px;
-                    ">
-                        Total Tickets
-                    </div>
+            <a href="/">Return to AI support agent</a>
 
-                </div>
+        </div>
 
-            </div>
+        {% endif %}
 
 
-            {% if tickets %}
+        <div class="ticket-panel-footer">
+            <span id="visibleCount">
+                {{ tickets|length }} of {{ tickets|length }} tickets shown
+            </span>
 
-            <div class="table-wrapper">
+            <span>Veridian AI · Support Queue</span>
+        </div>
 
-                <table>
+    </section>
 
-                    <thead>
+</main>
 
-                        <tr>
-                            <th>Ticket</th>
-                            <th>Employee</th>
-                            <th>Issue</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Policy Source</th>
-                            <th>Created</th>
-                        </tr>
 
-                    </thead>
+<!-- SEARCH AND FILTER FUNCTIONALITY -->
+<script>
+(() => {
 
+    const search = document.getElementById("ticketSearch");
+    const priority = document.getElementById("priorityFilter");
+    const status = document.getElementById("statusFilter");
+    const reset = document.getElementById("resetFilters");
 
-                    <tbody>
+    const rows = Array.from(
+        document.querySelectorAll("#ticketTableBody tr")
+    );
 
-                        {% for ticket in tickets %}
+    const noResults = document.getElementById("noResults");
+    const visibleCount = document.getElementById("visibleCount");
 
-                        <tr>
+    if (!search || !priority || !status) return;
 
-                            <!-- TICKET ID -->
-                            <td>
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:6px 9px;
-                                    border-radius:7px;
-                                    background:#eff6ff;
-                                    color:#1d4ed8;
-                                    font-weight:800;
-                                    font-size:12px;
-                                ">
-                                    TK-{{ ticket["id"] }}
-                                </span>
+    // Automatically include statuses present in the database.
+    const existing = new Set(
+        Array.from(status.options).map(option => option.value)
+    );
 
-                            </td>
+    [...new Set(rows.map(row => row.dataset.status).filter(Boolean))]
+        .sort()
+        .forEach(value => {
 
+            if (!existing.has(value)) {
 
-                            <!-- EMPLOYEE -->
-                            <td>
+                const option = document.createElement("option");
 
-                                <strong style="color:#1e293b;">
-                                    {{ ticket["employee_name"] }}
-                                </strong>
+                option.value = value;
 
-                            </td>
-
-
-                            <!-- ISSUE -->
-                            <td style="
-                                max-width:280px;
-                                line-height:1.5;
-                            ">
+                option.textContent = value.replace(
+                    /\b\w/g,
+                    char => char.toUpperCase()
+                );
 
-                                {{ ticket["issue"] }}
+                status.appendChild(option);
 
-                            </td>
+            }
 
+        });
 
-                            <!-- CATEGORY -->
-                            <td>
 
-                                {{ ticket["category"] }}
+    function applyFilters() {
 
-                            </td>
+        const query = search.value.trim().toLowerCase();
 
+        const selectedPriority = priority.value;
+        const selectedStatus = status.value;
 
-                            <!-- PRIORITY -->
-                            <td>
+        let visible = 0;
 
-                                {% if ticket["priority"] == "High" %}
+        rows.forEach(row => {
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:5px 9px;
-                                    border-radius:999px;
-                                    background:#fef2f2;
-                                    color:#b91c1c;
-                                    font-size:12px;
-                                    font-weight:800;
-                                ">
-                                    High
-                                </span>
+            const matches =
+                row.dataset.search.includes(query) &&
+                (!selectedPriority ||
+                    row.dataset.priority === selectedPriority) &&
+                (!selectedStatus ||
+                    row.dataset.status === selectedStatus);
 
-                                {% elif ticket["priority"] == "Medium" %}
+            row.hidden = !matches;
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:5px 9px;
-                                    border-radius:999px;
-                                    background:#fff7ed;
-                                    color:#c2410c;
-                                    font-size:12px;
-                                    font-weight:800;
-                                ">
-                                    Medium
-                                </span>
+            if (matches) visible++;
 
-                                {% else %}
+        });
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:5px 9px;
-                                    border-radius:999px;
-                                    background:#f0fdf4;
-                                    color:#15803d;
-                                    font-size:12px;
-                                    font-weight:800;
-                                ">
-                                    Low
-                                </span>
 
-                                {% endif %}
+        if (noResults) {
+            noResults.hidden = visible !== 0;
+        }
 
-                            </td>
+        if (visibleCount) {
+            visibleCount.textContent =
+                `${visible} of ${rows.length} tickets shown`;
+        }
 
+    }
 
-                            <!-- STATUS -->
-                            <td>
 
-                                {% if ticket["status"] == "Escalated" %}
+    search.addEventListener("input", applyFilters);
+    priority.addEventListener("change", applyFilters);
+    status.addEventListener("change", applyFilters);
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:5px 9px;
-                                    border-radius:999px;
-                                    background:#fff7ed;
-                                    color:#c2410c;
-                                    font-size:12px;
-                                    font-weight:800;
-                                ">
-                                    Escalated
-                                </span>
 
-                                {% else %}
+    reset.addEventListener("click", () => {
 
-                                <span style="
-                                    display:inline-block;
-                                    padding:5px 9px;
-                                    border-radius:999px;
-                                    background:#f0fdf4;
-                                    color:#15803d;
-                                    font-size:12px;
-                                    font-weight:800;
-                                ">
-                                    {{ ticket["status"] }}
-                                </span>
+        search.value = "";
+        priority.value = "";
+        status.value = "";
 
-                                {% endif %}
+        applyFilters();
 
-                            </td>
+    });
 
-
-                            <!-- SOURCE -->
-                            <td>
-
-                                <span style="
-                                    color:#2563eb;
-                                    font-weight:700;
-                                    font-size:13px;
-                                ">
-                                    {{ ticket["source"] }}
-                                </span>
-
-                            </td>
-
-
-                            <!-- CREATED -->
-                            <td style="
-                                white-space:nowrap;
-                                color:#64748b;
-                                font-size:13px;
-                            ">
-
-                                {{ ticket["created_at"] }}
-
-                            </td>
-
-                        </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-
-            {% else %}
-
-            <div class="empty-state">
-
-                <div style="
-                    width:58px;
-                    height:58px;
-                    margin:0 auto 15px;
-                    border-radius:16px;
-                    background:#eff6ff;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    color:#2563eb;
-                    font-size:25px;
-                ">
-                    ✓
-                </div>
-
-                <h3>No escalated tickets</h3>
-
-                <p>
-                    All current requests are either resolved or awaiting
-                    additional information.
-                </p>
-
-                <a href="/" style="
-                    display:inline-block;
-                    margin-top:18px;
-                    text-decoration:none;
-                    color:#2563eb;
-                    font-weight:700;
-                ">
-                    Return to Agent →
-                </a>
-
-            </div>
-
-            {% endif %}
-
-        </section>
-
-    </main>
-
-</div>
+})();
+</script>
 
 </body>
 </html>

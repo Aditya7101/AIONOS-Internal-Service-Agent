@@ -1,263 +1,469 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Audit Trail - Veridian IT</title>
+    <title>Audit Trail | Veridian AI</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='audit.css') }}">
 </head>
 
-<body>
+<body class="audit-page">
 
-<div class="container">
+<header class="site-header">
+    <div class="header-inner">
 
-    <!-- HEADER -->
-    <header class="header">
+        <a class="brand" href="/">
+            <span class="brand-name">VERIDIAN AI</span>
+            <span class="brand-subtitle">INTERNAL IT SUPPORT</span>
+        </a>
 
-        <div>
-            <h1>VERIDIAN CORP</h1>
-            <p>IT OPERATIONS · AGENT AUDIT TRAIL</p>
-        </div>
+        <div class="audit-header-right">
 
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:18px;
-        ">
-
-            <span style="
-                display:inline-flex;
-                align-items:center;
-                gap:7px;
-                color:#15803d;
-                font-size:13px;
-                font-weight:700;
-                background:#f0fdf4;
-                padding:7px 11px;
-                border-radius:999px;
-                border:1px solid #bbf7d0;
-            ">
-                <span style="
-                    width:8px;
-                    height:8px;
-                    border-radius:50%;
-                    background:#22c55e;
-                    display:inline-block;
-                "></span>
+            <span class="agent-status">
+                <span class="status-dot"></span>
                 Audit Active
             </span>
 
-            <nav>
-                <a href="/">Agent</a>
-                <a href="/tickets">Tickets</a>
-                <a href="/audit">Audit Trail</a>
+            <nav class="main-nav">
+                <a class="nav-link" href="/">Agent</a>
+                <a class="nav-link" href="/tickets">Tickets</a>
+                <a class="nav-link active" href="/audit">Audit Trail</a>
             </nav>
 
         </div>
+    </div>
+</header>
 
-    </header>
 
+<main class="page-shell audit-shell">
 
-    <main>
+    <!-- PAGE INTRO -->
 
-        <section class="page-card">
+    <section class="audit-intro">
 
-            <!-- INTRO -->
-            <div style="
-                display:inline-block;
-                font-size:12px;
-                font-weight:800;
-                letter-spacing:1px;
-                color:#2563eb;
-                background:#eff6ff;
-                padding:6px 10px;
-                border-radius:7px;
-                margin-bottom:12px;
-            ">
+        <div>
+            <span class="audit-eyebrow">
                 TRACEABILITY & GOVERNANCE
+            </span>
+
+            <h1>Agent Activity</h1>
+
+            <p>
+                Monitor and review every recorded support-agent action.
+            </p>
+        </div>
+
+        <div class="audit-live-indicator">
+            <span class="audit-live-dot"></span>
+            Activity Monitoring
+        </div>
+
+    </section>
+
+
+    <!-- CALCULATE STATISTICS -->
+
+    {% set ns = namespace(
+        created=0,
+        resolved=0,
+        followup=0
+    ) %}
+
+    {% for log in logs %}
+
+        {% if log["action"] == "TICKET_CREATED" %}
+            {% set ns.created = ns.created + 1 %}
+        {% elif log["action"] == "RESOLVED" %}
+            {% set ns.resolved = ns.resolved + 1 %}
+        {% elif log["action"] == "FOLLOW_UP" %}
+            {% set ns.followup = ns.followup + 1 %}
+        {% endif %}
+
+    {% endfor %}
+
+
+    <!-- STATISTICS -->
+
+    <section class="audit-stats">
+
+        <article class="audit-stat-card">
+
+            <div class="audit-stat-icon audit-blue">▤</div>
+
+            <div>
+                <span class="audit-stat-label">Total activities</span>
+                <strong>{{ logs|length }}</strong>
+                <small>All recorded actions</small>
             </div>
 
+        </article>
 
-            <div style="
-                display:flex;
-                justify-content:space-between;
-                align-items:flex-end;
-                gap:20px;
-                flex-wrap:wrap;
-            ">
 
-                <div>
+        <article class="audit-stat-card">
 
-                    <h2 style="margin-bottom:6px;">
-                        Agent Activity
-                    </h2>
+            <div class="audit-stat-icon audit-orange">＋</div>
 
-                    <p class="page-description">
-                        Every support-agent action is recorded for
-                        traceability and review.
-                    </p>
+            <div>
+                <span class="audit-stat-label">Tickets created</span>
+                <strong>{{ ns.created }}</strong>
+                <small>Escalation events</small>
+            </div>
+
+        </article>
+
+
+        <article class="audit-stat-card">
+
+            <div class="audit-stat-icon audit-green">✓</div>
+
+            <div>
+                <span class="audit-stat-label">Resolved</span>
+                <strong>{{ ns.resolved }}</strong>
+                <small>Resolved interactions</small>
+            </div>
+
+        </article>
+
+
+        <article class="audit-stat-card">
+
+            <div class="audit-stat-icon audit-purple">?</div>
+
+            <div>
+                <span class="audit-stat-label">Follow-ups</span>
+                <strong>{{ ns.followup }}</strong>
+                <small>Additional information needed</small>
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- ACTIVITY PANEL -->
+
+    <section class="audit-panel">
+
+        <div class="audit-panel-heading">
+
+            <div>
+                <h2>Activity history</h2>
+                <p>Review recorded employee and AI agent interactions.</p>
+            </div>
+
+            <span class="audit-record-count">
+                {{ logs|length }} record{{ 's' if logs|length != 1 else '' }}
+            </span>
+
+        </div>
+
+
+        <!-- SEARCH AND FILTER -->
+
+        <div class="audit-toolbar">
+
+            <label class="audit-search">
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    id="auditSearch"
+                    placeholder="Search employee, action or details..."
+                    autocomplete="off">
+            </label>
+
+
+            <select id="actionFilter">
+                <option value="">All activities</option>
+                <option value="ticket_created">Ticket created</option>
+                <option value="resolved">Resolved</option>
+                <option value="follow_up">Follow-up</option>
+            </select>
+
+
+            <button type="button"
+                    class="audit-reset"
+                    id="resetAudit">
+                Reset
+            </button>
+
+        </div>
+
+
+        {% if logs %}
+
+        <!-- ACTIVITY TIMELINE -->
+
+        <div class="audit-list" id="auditList">
+
+            {% for log in logs %}
+
+            <article class="audit-item"
+
+                data-search="{{ ((log['employee_name'] or '') ~ ' ' ~ (log['action'] or '') ~ ' ' ~ (log['details'] or ''))|lower }}"
+
+                data-action="{{ (log['action'] or '')|lower|replace(' ', '_') }}">
+
+                <div class="audit-timeline-marker">
+
+                    <span class="audit-marker-dot
+                        {% if log['action'] == 'TICKET_CREATED' %}
+                            marker-orange
+                        {% elif log['action'] == 'RESOLVED' %}
+                            marker-green
+                        {% else %}
+                            marker-blue
+                        {% endif %}
+                    "></span>
 
                 </div>
 
 
-                <div style="
-                    min-width:110px;
-                    text-align:center;
-                    background:#f8fafc;
-                    border:1px solid #e2e8f0;
-                    border-radius:12px;
-                    padding:12px 18px;
-                ">
+                <div class="audit-item-content">
 
-                    <div style="
-                        font-size:24px;
-                        font-weight:800;
-                        color:#0f1f3d;
-                    ">
-                        {{ logs|length }}
-                    </div>
+                    <div class="audit-item-top">
 
-                    <div style="
-                        font-size:11px;
-                        font-weight:700;
-                        color:#64748b;
-                        text-transform:uppercase;
-                        letter-spacing:.5px;
-                    ">
-                        Activities
-                    </div>
+                        <div class="audit-action-info">
 
-                </div>
+                            {% if log["action"] == "TICKET_CREATED" %}
 
-            </div>
+                                <span class="audit-action-badge action-ticket">
+                                    TICKET CREATED
+                                </span>
 
+                            {% elif log["action"] == "RESOLVED" %}
 
-            {% if logs %}
+                                <span class="audit-action-badge action-resolved">
+                                    RESOLVED
+                                </span>
 
-            <!-- ACTIVITY TIMELINE -->
-            <div class="audit-list">
+                            {% elif log["action"] == "FOLLOW_UP" %}
 
-                {% for log in logs %}
+                                <span class="audit-action-badge action-followup">
+                                    FOLLOW UP
+                                </span>
 
-                <div class="audit-item">
+                            {% else %}
 
-                    <div class="audit-header">
+                                <span class="audit-action-badge action-default">
+                                    {{ log["action"] }}
+                                </span>
 
-                        <div style="
-                            display:flex;
-                            align-items:center;
-                            gap:10px;
-                        ">
-
-                            <span style="
-                                width:10px;
-                                height:10px;
-                                border-radius:50%;
-                                background:#2563eb;
-                                display:inline-block;
-                                box-shadow:0 0 0 4px #eff6ff;
-                            "></span>
-
-                            <strong>
-                                {{ log["action"] }}
-                            </strong>
+                            {% endif %}
 
                         </div>
 
 
-                        <span>
+                        <span class="audit-timestamp">
+                            <span>◷</span>
                             {{ log["created_at"] }}
                         </span>
 
                     </div>
 
 
-                    <div style="
-                        margin-top:12px;
-                        padding:12px 14px;
-                        border-radius:9px;
-                        background:#f8fafc;
-                        border:1px solid #e2e8f0;
-                    ">
+                    <div class="audit-employee-box">
 
-                        <p style="margin:0;">
+                        <span class="audit-employee-icon">U</span>
 
-                            <strong style="color:#334155;">
-                                Employee:
+                        <div>
+                            <small>EMPLOYEE</small>
+
+                            <strong>
+                                {{ log["employee_name"] or "Unknown" }}
                             </strong>
-
-                            <span style="color:#475569;">
-                                {{ log["employee_name"] }}
-                            </span>
-
-                        </p>
+                        </div>
 
                     </div>
 
 
-                    <p style="
-                        margin-top:13px;
-                        color:#475569;
-                        line-height:1.6;
-                    ">
-                        {{ log["details"] }}
-                    </p>
+                    <div class="audit-details">
+
+                        <span class="audit-details-label">
+                            ACTIVITY DETAILS
+                        </span>
+
+                        <p>{{ log["details"] }}</p>
+
+                    </div>
 
                 </div>
 
-                {% endfor %}
+            </article>
 
-            </div>
+            {% endfor %}
+
+        </div>
 
 
-            {% else %}
+        <div class="audit-no-results" id="auditNoResults" hidden>
 
-            <!-- EMPTY STATE -->
-            <div class="empty-state">
+            <strong>No matching activities</strong>
 
-                <div style="
-                    width:58px;
-                    height:58px;
-                    margin:0 auto 15px;
-                    border-radius:16px;
-                    background:#eff6ff;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    color:#2563eb;
-                    font-size:25px;
-                ">
-                    ✓
-                </div>
+            <span>
+                Try changing your search or activity filter.
+            </span>
 
-                <h3>No activity yet</h3>
+        </div>
 
-                <p>
-                    Agent interactions will appear here automatically.
-                </p>
 
-                <a href="/" style="
-                    display:inline-block;
-                    margin-top:18px;
-                    text-decoration:none;
-                    color:#2563eb;
-                    font-weight:700;
-                ">
-                    Open Support Agent →
-                </a>
+        {% else %}
 
-            </div>
+        <!-- EMPTY STATE -->
 
-            {% endif %}
+        <div class="audit-empty-state">
 
-        </section>
+            <div class="audit-empty-icon">✓</div>
 
-    </main>
+            <h3>No activity recorded yet</h3>
 
-</div>
+            <p>
+                Employee interactions and AI agent decisions
+                will appear here automatically.
+            </p>
+
+            <a href="/">Open Support Agent →</a>
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="audit-panel-footer">
+
+            <span id="auditVisibleCount">
+                {{ logs|length }} of {{ logs|length }} activities shown
+            </span>
+
+            <span>Veridian AI · Audit Monitoring</span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- SEARCH AND FILTER FUNCTIONALITY -->
+
+<script>
+(() => {
+
+    const search = document.getElementById("auditSearch");
+    const filter = document.getElementById("actionFilter");
+    const reset = document.getElementById("resetAudit");
+
+    const items = Array.from(
+        document.querySelectorAll(".audit-item")
+    );
+
+    const noResults =
+        document.getElementById("auditNoResults");
+
+    const visibleCount =
+        document.getElementById("auditVisibleCount");
+
+
+    if (!search || !filter || !reset) return;
+
+
+    // Add any additional action types found in the database.
+
+    const existing = new Set(
+        Array.from(filter.options).map(option => option.value)
+    );
+
+    [...new Set(items.map(item => item.dataset.action))]
+        .filter(Boolean)
+        .sort()
+        .forEach(action => {
+
+            if (!existing.has(action)) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = action;
+
+                option.textContent = action
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, char =>
+                        char.toUpperCase()
+                    );
+
+                filter.appendChild(option);
+
+            }
+
+        });
+
+
+    function applyFilters() {
+
+        const query =
+            search.value.trim().toLowerCase();
+
+        const selectedAction = filter.value;
+
+        let visible = 0;
+
+
+        items.forEach(item => {
+
+            const matchesSearch =
+                item.dataset.search.includes(query);
+
+            const matchesAction =
+                !selectedAction ||
+                item.dataset.action === selectedAction;
+
+            const matches =
+                matchesSearch && matchesAction;
+
+            item.hidden = !matches;
+
+            if (matches) visible++;
+
+        });
+
+
+        if (noResults) {
+            noResults.hidden = visible !== 0;
+        }
+
+        if (visibleCount) {
+
+            visibleCount.textContent =
+                `${visible} of ${items.length} activities shown`;
+
+        }
+
+    }
+
+
+    search.addEventListener("input", applyFilters);
+
+    filter.addEventListener("change", applyFilters);
+
+
+    reset.addEventListener("click", () => {
+
+        search.value = "";
+        filter.value = "";
+
+        applyFilters();
+
+    });
+
+})();
+</script>
 
 </body>
 </html>
